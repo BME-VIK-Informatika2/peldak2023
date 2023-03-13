@@ -1,41 +1,11 @@
 # A lekérdezések működése
-
-# Descartes szorzat
-SELECT * FROM vevo;
-SELECT * FROM Vevo, Megrendeles;
-SELECT * FROM Vevo, Megrendeles WHERE Vevo.ID = Megrendeles.VevoID;
-SELECT * FROM Vevo V JOIN Megrendeles M ON Vevo.ID = Megrendeles.VevoID;
+# Descartes szorzat, where, join (Vevo és Megrendeles)
 
 # Rendelések és darabszámok
-select T.Nev AS TermekNev, V.Nev AS VevoNev, MT.db
-from Megrendeles M
-join megrendelestetel MT
-	on M.Id = MT.MegrendelesId
-join termek T
-	on MT.TermekId=T.Id
-join Vevo V
-	on V.Id = M.VevoID;
 
-# Ár kiszámolása
-select T.Nev AS TermekNev, V.Nev AS VevoNev, MT.db, T.Ar*MT.db AS Ar
-from Megrendeles M
-join megrendelestetel MT
-	on M.Id = MT.MegrendelesId
-join termek T
-	on MT.TermekId=T.Id
-join Vevo V
-	on V.Id = M.VevoID;
+# Ár kiszámolása (db*egységár)
 
 # Vevőnkénti összesített ár (GROUP BY)
-select V.Nev AS VevoNev, SUM(T.Ar*MT.db) AS Osszeg
-from Megrendeles M
-join megrendelestetel MT
-	on M.Id = MT.MegrendelesId
-join termek T
-	on MT.TermekId=T.Id
-join Vevo V
-	on V.Id = M.VevoID
-group by V.Id, V.Nev;
 
 # ===================== Aggreg
 
