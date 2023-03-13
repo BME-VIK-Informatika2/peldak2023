@@ -50,9 +50,11 @@ INSERT INTO Termek (Nev, Raktarkeszlet, Ar) VALUES ('Kivi', 0, NULL);
 
 -- Vásárlók
 INSERT INTO Vevo (Nev, Cim, Telefon) VALUES('Kiss Árpád', '1111 Budapest Egy u 3', NULL);
-INSERT INTO Vevo (Nev, Cim, Telefon) VALUES('Nagy Géza', '5000 Szolnok Fa u 4', '209874562');
+INSERT INTO Vevo (Nev, Cim, Telefon) VALUES('Nagy Géza', '5000 Szolnok Fa tér 4', '209874562');
 INSERT INTO Vevo (Nev, Cim, Telefon) VALUES('Kovács Ágnes', NULL, '701234567');
 INSERT INTO Vevo (Nev, Cim, Telefon) VALUES('Tóth István', '9000 Gyor To u 6', '305555555');
+INSERT INTO Vevo (Nev, Cim, Telefon) VALUES('Tóth Istvánné', '9000 Gyor To u 6', '305555555');
+INSERT INTO Vevo (Nev, Cim, Telefon) VALUES('Onkel Fritz', '1115 Budapest, Magyar tudósok krt. 2/Q To u 6', '+36201234567');
 
 -- Megrendelések
 INSERT INTO Megrendeles(VevoId, Datum) VALUES (2, '2023-01-01');
