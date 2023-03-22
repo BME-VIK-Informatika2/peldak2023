@@ -120,8 +120,7 @@ group by V.id, v.nev
 having TeljesOsszeg>=3000
 order by TeljesOsszeg desc
 
-# Minden vevőhöz a legdrágább termék, amit rendelt?
-
+# Melyik a legdrágább termék?
 # Veszélyforrás, hibás eredményt ad:
 select t.nev, max(t.ar)
 from termek T
@@ -133,9 +132,6 @@ where t.ar = (select max(ar) from termek);
 # ========= SUM, Join, GROUP BY, HAVING =========
 # Kik azok, akik legalább 2 eltérő terméket rendeltek?
 
-
-# ========= Weitere Anfragen =========
-# Melyik a legdrágább termék az adatbázisban?
 
 
 # ==================================================================================================
@@ -169,11 +165,6 @@ where t.ar = (select max(ar) from termek);
 #   Mely termékeket kell Budapestre szállítani és mennyit?
 
 
-# Melyik a legdrágább termék?
-# (Tipp: subquery-vel le kell kérni a maximális árat, majd megkeresni azt a terméket,
-#   melynek ennyi az ára)
-
-
 # (Ajánló rendszer) Melyek azok a termékek, melyeket együtt vásároltak Almával?
-#   Vagyis ugyanaz a vevő a mindkét terméket megrendelte legalább egyszer.
+#   Vagyis ugyanaz a vevő mindkét terméket megrendelte legalább egyszer.
 
