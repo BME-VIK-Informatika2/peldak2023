@@ -129,10 +129,7 @@ select t.Nev
 from termek t
 where t.ar = (select max(ar) from termek);
 
-# ========= SUM, Join, GROUP BY, HAVING =========
-# Kik azok, akik legalább 2 eltérő terméket rendeltek?
-
-
+*******************************************
 
 # ==================================================================================================
 # Melyek azok a termékpárok, melyek egységárának különbsége < 200 Ft?
@@ -141,21 +138,25 @@ where t.ar = (select max(ar) from termek);
 # ======== Join, outer join
 # Melyek azok a termékek, melyekből van legalább egy rendelés?
 
-# Melyek azok a termékek, melyekhez nincsen egyetlen rendelés sem?
 
+# és amihez legalább 2 rendelés van?
+
+
+# Melyek azok a termékek, melyekhez nincsen egyetlen rendelés sem?
 
 
 # =========== UPDATE, DELETE
 
 # Akció: Alma -20% (hogyan érdemes tárolni?)
 
-# Elírás javítása (először elrontása...)
 
 # ========== DELETE ==========
 # Epret már nem árulunk. Törölhetjük?
 
+
 # Először töröljük az összes ilyen megrendelést és utána töröljük.
 #   JOIN nem lehet delete-ben, kell a termék ID-ja
+
 
 # =========================== subquery
 # (Bevezető) Melyek azok a vevők, akik címében szerepel a "Budapest"?
@@ -165,6 +166,21 @@ where t.ar = (select max(ar) from termek);
 #   Mely termékeket kell Budapestre szállítani és mennyit?
 
 
-# (Ajánló rendszer) Melyek azok a termékek, melyeket együtt vásároltak Almával?
-#   Vagyis ugyanaz a vevő mindkét terméket megrendelte legalább egyszer.
 
+
+# Ellenorzeshez:
+select v.id, v.nev, V.cim, m.Id, m.Datum, mt.MegrendelesId, mt.db, t.ar, t.Nev,
+    mt.db*t.ar AS Osszeg
+from megrendelestetel MT
+join termek T
+  on MT.TermekId = T.id
+join megrendeles M
+  on MT.MegrendelesId = M.Id
+join vevo V
+  on V.id = m.VevoId;
+
+# (Ajánló rendszer) Melyek azok a termékek, melyeket együtt vásároltak Almával?
+#   Vagyis ugyanaz a vevő mindkét terméket megrendelte ugyanabban a megrendelésben.
+
+
+# Kik azok, akik legalább 2 eltérő terméket rendeltek?
