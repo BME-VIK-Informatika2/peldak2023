@@ -129,30 +129,47 @@ select t.Nev
 from termek t
 where t.ar = (select max(ar) from termek);
 
-*******************************************
-
 # ==================================================================================================
 # Melyek azok a termékpárok, melyek egységárának különbsége < 200 Ft?
 
+select T1.Nev, T2.Nev
+from termek T1 cross join termek T2
+where T1.id != T2.id
+	AND ABS(T1.ar-T2.ar)<200
+  AND T1.Nev < T2.Nev;
 
 # ======== Join, outer join
 # Melyek azok a termékek, melyekből van legalább egy rendelés?
+select distinct T.nev
+from megrendelestetel MT
+join termek T
+	on MT.TermekId = T.Id;
 
-
-# és amihez legalább 2 rendelés van?
-
+# és amihez legalább 3 rendelés van?
+select T.id, T.nev, count(*) as RendelesekSzama
+from megrendelestetel MT
+join termek T
+	on MT.TermekId = T.Id
+group by T.Id, T.nev
+having RendelesekSzama>=3;
 
 # Melyek azok a termékek, melyekhez nincsen egyetlen rendelés sem?
-
+select T.id, T.nev
+from megrendelestetel MT right outer join termek T
+	on MT.TermekId = T.Id
+where MT.MegrendelesId is null;
 
 # =========== UPDATE, DELETE
 
 # Akció: Alma -20% (hogyan érdemes tárolni?)
-
+alter table termek add column kedvezmeny float default 1.0;
+update termek set kedvezmeny=0.8 where id=1;
+update termek set kedvezmeny=0.8 where id = (select id from termek where nev='Alma');
 
 # ========== DELETE ==========
 # Epret már nem árulunk. Törölhetjük?
-
+delete from termek where id=3;
+delete from megrendelestetel where termekid=(select id from termek where nev='Eper');
 
 # Először töröljük az összes ilyen megrendelést és utána töröljük.
 #   JOIN nem lehet delete-ben, kell a termék ID-ja
