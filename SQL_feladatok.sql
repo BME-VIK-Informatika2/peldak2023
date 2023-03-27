@@ -177,13 +177,18 @@ delete from megrendelestetel where termekid=(select id from termek where nev='Ep
 
 # =========================== subquery
 # (Bevezető) Melyek azok a vevők, akik címében szerepel a "Budapest"?
-
+select ID from Vevo where Cim like '%Budapest%';
 
 # Ennek segítségével, mint beágyazott lekérdezéssel:
 #   Mely termékeket kell Budapestre szállítani és mennyit?
-
-
-
+select t.Nev, sum(mt.db) as OsszDb
+from megrendelestetel MT
+join termek T
+  on MT.TermekId = T.id
+join megrendeles M
+  on MT.MegrendelesId = M.Id
+where M.VevoId IN (select ID from Vevo where Cim like '%Budapest%')
+group by t.Nev;
 
 # Ellenorzeshez:
 select v.id, v.nev, V.cim, m.Id, m.Datum, mt.MegrendelesId, mt.db, t.ar, t.Nev,
@@ -198,6 +203,25 @@ join vevo V
 
 # (Ajánló rendszer) Melyek azok a termékek, melyeket együtt vásároltak Almával?
 #   Vagyis ugyanaz a vevő mindkét terméket megrendelte ugyanabban a megrendelésben.
-
+select DISTINCT T1.Nev
+from Termek T1 cross join Termek T2
+join megrendelestetel MT1 on T1.Id = MT1.termekid
+join megrendelestetel MT2 on T2.Id = MT2.termekid
+where MT1.MegrendelesId=MT2.MegrendelesId
+	AND T2.Nev='Alma'
+	AND T1.Nev != 'Alma';
 
 # Kik azok, akik legalább 2 eltérő terméket rendeltek?
+ select VevoID, VevoNev, count(TermekID) as KulonbozoTerekekSzama
+ from (
+ select distinct v.id AS VevoID, v.nev as VevoNev, t.id as TermekID, t.nev as TermekNev
+    from Termek T
+    join megrendelestetel MT
+      on T.ID = MT.termekid
+    join megrendeles M
+      on MT.MegrendelesId = M.id
+    join vevo v
+      on v.id = m.vevoid) rendelttermekek
+group by VevoID
+having KulonbozoTerekekSzama >= 2;
+
