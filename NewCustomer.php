@@ -1,11 +1,11 @@
 <!DOCTYPE html> 
 <html> 
-    <head><title>New Customer</title></head> 
+    <head><title>New Customer (post method)</title></head> 
     <body> 
 <?php 
-    if( isset( $_GET[ 'Nev' ] ) ) { 
-        $CustomerName = $_GET[ 'Nev' ]; 
-        $CustomerAddress = $_GET[ 'Cim' ]; 
+    if( isset( $_POST[ 'Nev' ] ) ) { 
+        $CustomerName = $_POST[ 'Nev' ]; 
+        $CustomerAddress = $_POST[ 'Cim' ]; 
  
 		$mysqli = new mysqli("localhost","root","","demowebshop");
 		if($mysqli->connect_errno)
@@ -13,7 +13,6 @@
 			echo "MySQL error: " . $mysqli->connect_error . "<BR/>";
 		}
  
-
         $query="INSERT INTO Vevo(Nev, Cim) VALUES(?,?)";
         echo "SQL command: ".$query."<BR/>Name=".$CustomerName." Address=".$CustomerAddress."<BR/>";
         $statement = $mysqli->prepare($query);
@@ -30,10 +29,10 @@
         $statement->close();
         $mysqli->close();
 
-		echo('Customer added (received via GET method)');
+		echo('Customer added (received via POST method)');
     } 
 ?>
-        <form method="GET" accept-charset="utf-8"> 
+        <form method="POST" accept-charset="utf-8"> 
             Name: <input type="text" name="Nev" /> <br /> 
             Cím: <input type="text" name="Cim" /> <br /> 
             <input type="submit"/> 
