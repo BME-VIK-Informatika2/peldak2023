@@ -1,0 +1,11 @@
+.rendeleslistasor:nth-child(even) {
+    background-color: yellow;
+}
+
+.rendeleslistasor:nth-child(odd) {
+    background-color: orange;
+}
+
+.termeklistasor {
+    background-color: greenyellow;
+}
