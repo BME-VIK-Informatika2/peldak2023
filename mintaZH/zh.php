@@ -2,13 +2,12 @@
 <head>
 <title>Állatok</title>
 <?php
-    if (isset($_GET['skin'])) {
-        echo "<link rel='stylesheet' type='text/css' href='zh".$_GET['skin'].".css' />";
+    if (isset($_COOKIE['skin'])) {
+        echo "<link rel='stylesheet' type='text/css' href='zh".$_COOKIE['skin'].".css' />";
     }
     else {
         echo "<link rel='stylesheet' type='text/css' href='zh1.css' />";
     }
-
 ?>
 </head>
 <body>
@@ -18,7 +17,6 @@
         echo("<H2 id='hiba'>Nincsen fajnév megadva... :(</H2>");
         echo("<form method='GET'>");
         echo("    Fajnév: <input type='text' name='fajnev' />");
-        echo("    <input type='hidden' name='skin' value='".$_GET['skin']."'/>");
         echo("    <input type='submit' />");
         echo("</from>");
     }
