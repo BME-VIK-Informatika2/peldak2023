@@ -7,7 +7,11 @@
 <H1 id="nev">Név, NKód</H1>
 <?php
     if (!isset($_GET['fajnev'])) {
-        die("<H2 id='hiba'>Nincsen fajnév megadva... :(</H2>");
+        echo("<H2 id='hiba'>Nincsen fajnév megadva... :(</H2>");
+        echo("<form method='GET'>");
+        echo("    Fajnév: <input type='text' name='fajnev' />");
+        echo("    <input type='submit' />");
+        echo("</from>");
     }
     else {
         $mysqli = new mysqli('localhost','root','','allatkert');
@@ -35,5 +39,8 @@
         $mysqli->close();
     }
 ?>
+
+
+
 </BODY>
 </HTML>
