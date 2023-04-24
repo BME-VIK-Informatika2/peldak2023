@@ -1,0 +1,17 @@
+#hiba {
+    color: red;
+    font-style: italic
+}
+
+#nev {
+    color: darkblue
+}
+
+TH, TD {
+    text-align: center;
+    color: blue
+}
+
+TD:nth-child(odd) {
+    background-color: lightgreen;
+}
