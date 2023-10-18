@@ -1,6 +1,6 @@
 <!DOCTYPE html> 
 <html> 
-    <head><title>New Customer (post method)</title></head> 
+    <head><title>New Customer (POST method)</title></head> 
     <body> 
 <?php 
     if( isset( $_POST[ 'Nev' ] ) ) { 
